@@ -1,5 +1,7 @@
 # Hypercerts Skills
 
+[![skills.sh](https://skills.sh/b/hypercerts-org/skills)](https://www.skills.sh/hypercerts-org/skills)
+
 Portable Agent Skills entrypoint for Hypercerts developer workflows.
 
 This repository currently ships one meta-skill:
