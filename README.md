@@ -11,13 +11,13 @@ This repository currently ships one meta-skill:
 List available skills in this repository:
 
 ```bash
-npx skills add kzoeps/meta-skills-test --list
+npx skills add hypercerts-org/skills --list
 ```
 
 Install the Hypercerts meta-skill:
 
 ```bash
-npx skills add kzoeps/meta-skills-test --skill hypercerts
+npx skills add hypercerts-org/skills --skill hypercerts
 ```
 
 For local testing from this checkout:
@@ -32,8 +32,13 @@ The meta-skill points to:
 
 - `epds-login` from [`hypercerts-org/ePDS`](https://github.com/hypercerts-org/ePDS/tree/main/.agents/skills/epds-login)
 - `hyperindex` from [`GainForest/hyperindex`](https://github.com/GainForest/hyperindex/tree/main/.agents/skills/hyperindex)
+- `app-development-with-cgs` from [`hypercerts-org/certified-group-service`](https://github.com/hypercerts-org/certified-group-service/tree/main/.agents/skills/app-development-with-cgs)
 - `building-with-hypercerts-lexicons` from [`hypercerts-org/hypercerts-lexicon`](https://github.com/hypercerts-org/hypercerts-lexicon/tree/main/.agents/skills/building-with-hypercerts-lexicons)
 
 ## Design
 
 This is intentionally a thin catalog. Agent Skills do not define a portable mechanism for one skill to invoke another skill, so this repo documents how to install the focused skills and lets each installed skill activate through its own `description`.
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) before adding another focused skill to the catalog.
