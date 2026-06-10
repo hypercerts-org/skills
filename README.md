@@ -37,6 +37,8 @@ The meta-skill points to:
 - `app-development-with-cgs` from [`hypercerts-org/certified-group-service`](https://github.com/hypercerts-org/certified-group-service/tree/main/.agents/skills/app-development-with-cgs)
 - `building-with-hypercerts-lexicons` from [`hypercerts-org/hypercerts-lexicon`](https://github.com/hypercerts-org/hypercerts-lexicon/tree/main/.agents/skills/building-with-hypercerts-lexicons)
 
+The catalog also links to the [Hyperscan Agent API](https://www.hyperscan.dev/agents) for ecosystem-wide markdown references and Hypercerts task guides.
+
 ## Design
 
 This is intentionally a thin catalog. Agent Skills do not define a portable mechanism for one skill to invoke another skill, so this repo documents how to install the focused skills and lets each installed skill activate through its own `description`.
