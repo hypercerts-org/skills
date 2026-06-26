@@ -2,6 +2,8 @@
 
 Before adding a skill to the Hypercerts catalog, verify the source skill is portable, focused, and installable.
 
+Do not vendor or copy focused skill directories into this repository; add catalog pointers only.
+
 ## Required checks
 
 - The skill directory contains a `SKILL.md` file.

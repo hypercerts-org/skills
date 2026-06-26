@@ -1,11 +1,11 @@
 ---
 name: hypercerts
-description: Use this skill when a user asks which Hypercerts skill to use, how to install Hypercerts skills, or needs help discovering focused skills for developer workflows across the Hypercerts stack, including ePDS, Hyperindex, Hypercerts lexicons, ATProto-based Hypercerts infrastructure, Certified Group Service (CGS), and future Hypercerts tools. This is a catalog and installer skill; after installation, read and follow the focused skill's own SKILL.md.
+description: Use this skill when a user asks which Hypercerts skill to use, how to install Hypercerts skills, or needs help discovering focused skills for developer workflows across the Hypercerts stack, including ePDS, Hyperindex, Hypercerts lexicons, ATProto-based Hypercerts infrastructure, Certified Group Service (CGS), OrgLabeler / Certified Organization Labeler labels, and future Hypercerts tools. This is a catalog and installer skill; after installation, read and follow the focused skill's own SKILL.md.
 ---
 
 # Hypercerts Skills
 
-This meta-skill helps users discover and install focused Hypercerts agent skills. It does not contain the full task instructions for ePDS, Hyperindex, CGS, or Hypercerts lexicons.
+This meta-skill helps users discover and install focused Hypercerts agent skills. It does not contain the full task instructions for ePDS, Hyperindex, CGS, OrgLabeler, or Hypercerts lexicons.
 
 Use it when a user asks about Hypercerts and the right focused skill is not installed yet, or when they ask which Hypercerts skill they need.
 
