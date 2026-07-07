@@ -59,7 +59,7 @@ Required fields:
   "application_type": "web",
   "grant_types": ["authorization_code", "refresh_token"],
   "response_types": ["code"],
-  "scope": "atproto transition:generic",
+  "scope": "atproto repo:app.bsky.feed.post?action=create&action=delete rpc:app.bsky.feed.getTimeline?aud=did:web:api.bsky.app%23bsky_appview",
   "redirect_uris": ["https://example.app/oauth/callback"],
   "dpop_bound_access_tokens": true,
   "token_endpoint_auth_method": "private_key_jwt",
@@ -69,6 +69,7 @@ Required fields:
 ```
 
 - Public clients omit `jwks`/`jwks_uri` and set `token_endpoint_auth_method: "none"`.
+- The `scope` above is illustrative — request only the granular resources your app actually uses (see "Scopes and Permission Sets"). Do **not** default to `transition:generic` in new clients.
 - `scope` in metadata is the **upper bound** — any authorize request's `scope` must be a subset of it, never a superset (`invalid_scope` otherwise).
 - `redirect_uris` must contain the exact callback URI used; native clients use a reverse-DNS custom scheme (`com.example.app:/callback`) instead of HTTPS.
 - `jwks`/`jwks_uri` publish only the **public** half of signing keys — never the `d` component. Leaking `d` means immediate key rotation + session revocation.
@@ -177,6 +178,7 @@ Always prefer the official reference implementation over hand-rolling PAR/DPoP/P
 - `@atproto/oauth-client-browser` — public SPA clients, persists session state to IndexedDB.
 
 Both handle DPoP proof generation, `htu` normalization, and nonce retry internally — never hand-roll PAR, DPoP proof minting, or PKCE when these are available.
+
 
 ## Guidelines
 
