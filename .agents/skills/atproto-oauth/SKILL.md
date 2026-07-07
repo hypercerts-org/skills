@@ -114,7 +114,7 @@ Granular resources (prefer these for any new app):
 
 ### XRPC audience (`aud`) — why it matters more than the method name
 
-An access token is bound to the AS/PDS pair you completed the OAuth flow with, but XRPC calls frequently target a *different* service than your own PDS — most `app.bsky.*` methods are actually served by the Bluesky AppView (a distinct service, its own DID, e.g. `did:web:api.bsky.app#bsky_appview`), not the user's PDS. The `rpc:` scope's `aud` parameter is what authorizes the token to be presented to *that specific service*, independent of which `lxm` (method NSID) is being called:
+An access token is bound to the AS/PDS pair you completed the OAuth flow with, but XRPC calls frequently target a _different_ service than your own PDS — most `app.bsky.*` methods are actually served by the Bluesky AppView (a distinct service, its own DID, e.g. `did:web:api.bsky.app#bsky_appview`), not the user's PDS. The `rpc:` scope's `aud` parameter is what authorizes the token to be presented to _that specific service_, independent of which `lxm` (method NSID) is being called:
 
 ```
 rpc:app.bsky.feed.searchPosts?aud=did:web:api.bsky.app%23bsky_appview   # one method, one service
@@ -160,15 +160,15 @@ Refresh-lifetime caps: **public clients 14 days**, **confidential clients 180 da
 
 ## Troubleshooting Cheatsheet
 
-| Symptom | Likely cause |
-|---|---|
-| `use_dpop_nonce` (400/401) | Expected on first request to a new origin — extract `DPoP-Nonce` header, retry once with a fresh proof carrying that nonce. Twice in a row is a bug (clock skew, wrong `htu`, or nonce copied from the wrong origin). |
-| `invalid_dpop_proof` | Missing `ath` on a resource request, wrong `htm`/`htu` (often a stray query string), stale/wrong-origin nonce, clock skew, wrong `typ` (must be exactly `dpop+jwt`), or a reused proof. |
-| `invalid_grant` | Authorization code already used or expired; or refresh token already used/session revoked. No retry is possible — re-authenticate. |
-| `invalid_client` | Client assertion's `kid` not in the currently published `jwks`, assertion expired, `aud` mismatch, or metadata document not fetchable. |
-| Callback handler can't find stored state | `SameSite=Strict` on the session cookie dropped it during the cross-origin redirect — switch to `Lax`. |
-| `invalid_scope` | Requested scope isn't a subset of client metadata's declared `scope`, malformed scope syntax, or missing `atproto`. |
-| Sporadic 401s despite recent refreshes | Refresh race — two concurrent refreshes for the same DID. Add a per-DID lock. |
+| Symptom                                  | Likely cause                                                                                                                                                                                                          |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `use_dpop_nonce` (400/401)               | Expected on first request to a new origin — extract `DPoP-Nonce` header, retry once with a fresh proof carrying that nonce. Twice in a row is a bug (clock skew, wrong `htu`, or nonce copied from the wrong origin). |
+| `invalid_dpop_proof`                     | Missing `ath` on a resource request, wrong `htm`/`htu` (often a stray query string), stale/wrong-origin nonce, clock skew, wrong `typ` (must be exactly `dpop+jwt`), or a reused proof.                               |
+| `invalid_grant`                          | Authorization code already used or expired; or refresh token already used/session revoked. No retry is possible — re-authenticate.                                                                                    |
+| `invalid_client`                         | Client assertion's `kid` not in the currently published `jwks`, assertion expired, `aud` mismatch, or metadata document not fetchable.                                                                                |
+| Callback handler can't find stored state | `SameSite=Strict` on the session cookie dropped it during the cross-origin redirect — switch to `Lax`.                                                                                                                |
+| `invalid_scope`                          | Requested scope isn't a subset of client metadata's declared `scope`, malformed scope syntax, or missing `atproto`.                                                                                                   |
+| Sporadic 401s despite recent refreshes   | Refresh race — two concurrent refreshes for the same DID. Add a per-DID lock.                                                                                                                                         |
 
 ## Library Guidance
 
@@ -178,7 +178,6 @@ Always prefer the official reference implementation over hand-rolling PAR/DPoP/P
 - `@atproto/oauth-client-browser` — public SPA clients, persists session state to IndexedDB.
 
 Both handle DPoP proof generation, `htu` normalization, and nonce retry internally — never hand-roll PAR, DPoP proof minting, or PKCE when these are available.
-
 
 ## Guidelines
 
