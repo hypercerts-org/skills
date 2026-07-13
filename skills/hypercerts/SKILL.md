@@ -25,5 +25,5 @@ Use it when a user asks about Hypercerts and the right focused skill is not inst
 
 ## References
 
-- [Skill map](references/skill-map.md): task-to-skill mapping, source repositories, and fallback URLs.
+- [Skill map](references/skill-map.md): task-to-skill mapping, source repositories, fallback URLs, and Hyperscan ecosystem references.
 - [Install reference](references/install.md): generic install, fallback, and locating workflow.

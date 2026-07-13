@@ -37,6 +37,7 @@ The meta-skill points to:
 - `app-development-with-cgs` from [`hypercerts-org/certified-group-service`](https://github.com/hypercerts-org/certified-group-service/tree/main/.agents/skills/app-development-with-cgs)
 - `orglabeler` from [`hypercerts-org/orglabeler`](https://github.com/hypercerts-org/orglabeler/tree/main/.agents/skills/orglabeler)
 - `building-with-hypercerts-lexicons` from [`hypercerts-org/hypercerts-lexicon`](https://github.com/hypercerts-org/hypercerts-lexicon/tree/main/.agents/skills/building-with-hypercerts-lexicons)
+- Ecosystem documentation from the [Hyperscan Agent API](https://www.hyperscan.dev/agents), including ecosystem-wide markdown references and Hypercerts task guides.
 
 ## Design
 
