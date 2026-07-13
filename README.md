@@ -36,8 +36,7 @@ The meta-skill points to:
 - `hyperindex` from [`GainForest/hyperindex`](https://github.com/GainForest/hyperindex/tree/main/.agents/skills/hyperindex)
 - `app-development-with-cgs` from [`hypercerts-org/certified-group-service`](https://github.com/hypercerts-org/certified-group-service/tree/main/.agents/skills/app-development-with-cgs)
 - `building-with-hypercerts-lexicons` from [`hypercerts-org/hypercerts-lexicon`](https://github.com/hypercerts-org/hypercerts-lexicon/tree/main/.agents/skills/building-with-hypercerts-lexicons)
-
-The catalog also links to the [Hyperscan Agent API](https://www.hyperscan.dev/agents) for ecosystem-wide markdown references and Hypercerts task guides.
+- Ecosystem documentation from the [Hyperscan Agent API](https://www.hyperscan.dev/agents), including ecosystem-wide markdown references and Hypercerts task guides.
 
 ## Design
 

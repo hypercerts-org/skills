@@ -18,6 +18,6 @@ Use these markdown references for general Hypercerts ecosystem questions and tas
 | Need | Reference |
 | --- | --- |
 | Get an ecosystem-wide overview of available agent-facing Hyperscan guides | [`https://www.hyperscan.dev/agents`](https://www.hyperscan.dev/agents) |
-| Understand supported authentication flows before writing records | [`/agents/guides/authentication`](https://www.hyperscan.dev/agents/guides/authentication) |
-| Create or fund Hypercerts records | [`/agents/guides/create-hypercert`](https://www.hyperscan.dev/agents/guides/create-hypercert), [`/agents/guides/fund-hypercert`](https://www.hyperscan.dev/agents/guides/fund-hypercert) |
-| Use the Hypercerts CLI from an agent workflow | [`/agents/guides/hypercerts-cli`](https://www.hyperscan.dev/agents/guides/hypercerts-cli) |
+| Understand supported authentication flows before writing records | [`https://www.hyperscan.dev/agents/guides/authentication`](https://www.hyperscan.dev/agents/guides/authentication) |
+| Create or fund Hypercerts records | [`https://www.hyperscan.dev/agents/guides/create-hypercert`](https://www.hyperscan.dev/agents/guides/create-hypercert), [`https://www.hyperscan.dev/agents/guides/fund-hypercert`](https://www.hyperscan.dev/agents/guides/fund-hypercert) |
+| Use the Hypercerts CLI from an agent workflow | [`https://www.hyperscan.dev/agents/guides/hypercerts-cli`](https://www.hyperscan.dev/agents/guides/hypercerts-cli) |
