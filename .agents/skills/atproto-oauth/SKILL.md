@@ -160,9 +160,9 @@ Skipping this check leaves a window where a malicious or compromised AS can mint
 Two distinct stores with different lifetimes:
 
 - **Pre-flow state store** (keyed by `state`): `state`, PKCE verifier, DPoP private key, issuer, TTL ~10 minutes. Delete the row the moment token exchange begins — single-use, prevents replay.
-- **Post-flow session store** (keyed by **DID, not handle**): `did`, `access_token`, `refresh_token`, `access_token_expires_at`, `dpop_private_key`, `issuer`, per-origin DPoP nonces, granted `scope`. Handles change; DIDs don't — never key sessions by handle.
+- **Post-flow session store** (keyed by a **random session ID**, `did` indexed): `session_id`, `did`, `access_token`, `refresh_token`, `access_token_expires_at`, `dpop_private_key`, `issuer`, per-origin DPoP nonces, granted `scope`. Never key by handle (handles change, DIDs don't) — but not by DID alone either: one account has concurrent sessions across devices, each with its own DPoP key and refresh-token family, and a DID-primary key collapses them so one login clobbers another.
 
-Refresh tokens are single-use; every refresh call returns a new access token **and** a new refresh token, which must be persisted atomically. The classic bug: two concurrent requests both see a near-expiry token and both refresh — the second invalidates the first's new refresh token, silently killing one session copy. Mitigate with a per-DID lock (mutex, single-flight, or DB row-level lock) around every refresh — never let two refreshes for the same DID run concurrently.
+Refresh tokens are single-use; each refresh returns a new access **and** refresh token, persisted atomically. The classic bug: two concurrent requests in the same session both refresh, and the second invalidates the first's new refresh token. Take a per-session lock (mutex, single-flight, or row-level) around every refresh — per-DID locking serializes unrelated devices without fixing the shared-row case.
 
 Refresh-lifetime caps: **public clients 14 days**, **confidential clients 180 days per token** (with unlimited overall session lifetime via periodic key rotation).
 
@@ -177,19 +177,19 @@ Refresh-lifetime caps: **public clients 14 days**, **confidential clients 180 da
 
 | Symptom                                  | Likely cause                                                                                                                                                                                                          |
 | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `use_dpop_nonce` (400/401)               | Expected on first request to a new origin — extract `DPoP-Nonce` header, retry once with a fresh proof carrying that nonce. Twice in a row is a bug (clock skew, wrong `htu`, or nonce copied from the wrong origin). |
+| `use_dpop_nonce` (400/401)               | Expected on first request to a new origin — take the `DPoP-Nonce` header, mint a fresh proof with it, retry. Servers rotate nonces, so allow a bounded budget (1–2 retries), then fail loudly rather than loop. Repeated challenges suggest clock skew, wrong `htu`, or a nonce cached against the wrong origin — nonce state is per-origin, and nonce failures can also surface as `invalid_dpop_proof`. |
 | `invalid_dpop_proof`                     | Missing `ath` on a resource request, wrong `htm`/`htu` (often a stray query string), stale/wrong-origin nonce, clock skew, wrong `typ` (must be exactly `dpop+jwt`), or a reused proof.                               |
 | `invalid_grant`                          | Authorization code already used or expired; or refresh token already used/session revoked. No retry is possible — re-authenticate.                                                                                    |
 | `invalid_client`                         | Client assertion's `kid` not in the currently published `jwks`, assertion expired, `aud` mismatch, or metadata document not fetchable.                                                                                |
 | Callback handler can't find stored state | `SameSite=Strict` on the session cookie dropped it during the cross-origin redirect — switch to `Lax`.                                                                                                                |
 | `invalid_scope`                          | Requested scope isn't a subset of client metadata's declared `scope`, malformed scope syntax, or missing `atproto`.                                                                                                   |
-| Sporadic 401s despite recent refreshes   | Refresh race — two concurrent refreshes for the same DID. Add a per-DID lock.                                                                                                                                         |
+| Sporadic 401s despite recent refreshes   | Refresh race — two concurrent refreshes against the same refresh-token family. Add a per-session lock.                                                                                                                |
 
 ## Library Guidance
 
 Always prefer the official reference implementation over hand-rolling PAR/DPoP/PKCE — the protocol is unforgiving at the byte level:
 
-- `@atproto/oauth-client-node` — confidential/BFF and native clients. Ships a built-in refresh lock (`NodeRequestLock`).
+- `@atproto/oauth-client-node` — confidential/BFF and native clients. Ships a built-in refresh lock (`NodeRequestLock`). Its `SessionStore` is keyed by `sub` (DID), so multi-device apps must back it with a session-ID-keyed table and scope the client per session.
 - `@atproto/oauth-client-browser` — public SPA clients, persists session state to IndexedDB.
 
 Both handle DPoP proof generation, `htu` normalization, and nonce retry internally — never hand-roll PAR, DPoP proof minting, or PKCE when these are available.
