@@ -2,7 +2,9 @@
 
 Before adding a skill to the Hypercerts catalog, verify the source skill is portable, focused, and installable.
 
-Do not vendor or copy focused skill directories into this repository; add catalog pointers only.
+App or service specific focused skills should not be vendored or copied into this repository; add catalog pointers to their source repository only.
+
+Generic skills that are not unique to any specific app (protocol-level, e.g. `atproto-oauth`) may be hosted directly in this repository under `.agents/skills/<name>/`. Only host a skill here if it would apply the same way regardless of which app or repo is using it — if the skill is tied to a particular app's architecture or codebase, it belongs in that app's own repository as a pointer instead.
 
 ## Required checks
 
@@ -40,8 +42,8 @@ npx skills add https://github.com/<owner>/<repo>/tree/main/<path-to-skill> --yes
 
 When a new skill passes the checks:
 
-1. Add it to the table in `skills/hypercerts/references/skill-map.md`.
-2. Add the source link to the included pointers in `README.md`.
+1. Add it to the table in `skills/hypercerts/references/skill-map.md`. For a locally hosted skill, use `npx skills add hypercerts-org/skills --skill <skill-name> --yes` as the source repository install command and `https://github.com/hypercerts-org/skills/tree/main/.agents/skills/<skill-name>` as the direct-directory fallback.
+2. Add the source link to `README.md` — under "Included skills (hosted here)" for locally hosted skills, or "Included pointers (hosted elsewhere)" for skills in another repository.
 3. Update `skills/hypercerts/SKILL.md` only if the catalog description needs a new trigger category.
 
 Keep `skills/hypercerts/references/install.md` generic. Skill-specific install commands and fallback URLs belong in the skill map.

@@ -28,9 +28,15 @@ For local testing from this checkout:
 npx skills add . --list
 ```
 
-## Included pointers
+## Included skills (hosted here)
 
-The meta-skill points to:
+Generic, reusable skills that are not tied to any specific app live directly in this repository under `.agents/skills`.
+
+- [atproto-oauth](https://github.com/hypercerts-org/skills/tree/main/.agents/skills/atproto-oauth)
+
+## Included pointers (hosted elsewhere)
+
+App-specific focused skills remain pointers to their source repositories:
 
 - `epds-login` from [`hypercerts-org/ePDS`](https://github.com/hypercerts-org/ePDS/tree/main/.agents/skills/epds-login)
 - `hyperindex` from [`GainForest/hyperindex`](https://github.com/GainForest/hyperindex/tree/main/.agents/skills/hyperindex)
@@ -41,7 +47,7 @@ The meta-skill points to:
 
 ## Design
 
-This is intentionally a thin catalog. Agent Skills do not define a portable mechanism for one skill to invoke another skill, so this repo documents how to install the focused skills and lets each installed skill activate through its own `description`.
+This is intentionally a thin catalog. Agent Skills do not define a portable mechanism for one skill to invoke another skill, so this repo documents how to install the focused skills and lets each installed skill activate through its own `description`. Generic skills that are not unique to any specific app (e.g. protocol-level guidance like `atproto-oauth`) may be vendored directly under `.agents/skills/` in this repo instead of pointing elsewhere; app-specific skills remain pointers to their source repos.
 
 ## Contributing
 
