@@ -75,7 +75,7 @@ Required fields:
 - `jwks`/`jwks_uri` publish only the **public** half of signing keys — never the `d` component. Leaking `d` means immediate key rotation + session revocation.
 - Optional trust-building fields (`client_name`, `client_uri`, `logo_uri`, `tos_uri`, `policy_uri`) only render on the consent screen for AS-whitelisted "trusted" clients.
 
-When the AS is an **ePDS** instance, the `epds-login` skill (`ePDS/.agents/skills/epds-login/`) extends this section with ePDS-specific client metadata guidance — confidential vs public client setup, `jwks_uri` vs inline `jwks`, key generation, the force-consent gotcha with public clients, email branding fields, and the `include:` permission sets ePDS apps typically request. Use it alongside this skill for ePDS deployments; it covers only what is ePDS-specific and defers to this skill for protocol-level detail.
+When the AS is an **ePDS** instance, load the `epds-login` skill — it extends this section with ePDS-specific client metadata guidance — confidential vs public client setup, `jwks_uri` vs inline `jwks`, key generation, the force-consent gotcha with public clients, email branding fields, and the `include:` permission sets ePDS apps typically request. Use it alongside this skill for ePDS deployments; it covers only what is ePDS-specific and defers to this skill for protocol-level detail. (It ships from the [ePDS repo](https://github.com/hypercerts-org/ePDS) under `.agents/skills/epds-login/`.)
 
 ## DPoP (RFC 9449)
 
@@ -128,6 +128,19 @@ rpc:app.bsky.feed.searchPosts?aud=*                                    # this me
 - `#` inside an `aud` service-DID reference **must** be percent-encoded as `%23` in the scope string — a raw `#` truncates the fragment and silently breaks the grant.
 - Getting `lxm` right but `aud` wrong (or omitted) is the single most common scope bug for `app.bsky.*` integrations: the method name matches, but the token isn't authorized for the AppView's DID, so the call is rejected even though the scope "looks correct" at a glance. Always set `aud` to the actual service DID the request will hit — resolve it the same way you'd resolve any service endpoint (from the target's DID document), don't hardcode Bluesky's production AppView DID as a universal default if the app is meant to work against other AT Proto services.
 - Calls to your **own** PDS (e.g. `com.atproto.repo.createRecord`) are the common case where `aud` is trivially "the PDS you authenticated against" — but the moment a lexicon is served by a third-party AppView, feed generator, or labeler, treat `aud` as a first-class, per-service value to get right, not an afterthought to the method name.
+
+#### `aud` when calling the Certified Group Service (CGS)
+
+CGS (`app.certified.group.*`) is a concrete instance of the third-party-service case above, and it has its own `aud` rules that are easy to get wrong. **Load the `app-development-with-cgs` skill before writing any app code that calls CGS** — do not reconstruct request shapes from this section. (It ships from the [certified-group-service repo](https://github.com/hypercerts-org/certified-group-service) under `.agents/skills/app-development-with-cgs/`; if it isn't installed, read the docs linked below instead.)
+
+The short version, enough to recognize when you're in this territory:
+
+- CGS calls carry a **service-auth JWT** (`getServiceAuth`, or a PDS-proxied request) whose `aud` claim is a distinct mechanism from the OAuth `rpc:?aud=` scope parameter — but it asks the same question, "which service is this token for", and gets the same answer style: a DID resolved from a DID document, never hardcoded.
+- The correct `aud` is the **service** DID — `did:web:<host>`, derived from the host of the `certified_group` service entry in the *group's* DID document. It is **not** the group's DID.
+- Naming the target group via `aud` is the **deprecated legacy form**; the supported form sets `aud` to the service DID and names the group with an explicit `repo` field (querystring for queries, body for JSON procedures). The two must migrate together — a half-migrated request is rejected with `401 jwt audience does not match service did`, and legacy-path responses carry a `Deprecation: true` header.
+- Under proxying, `did:web:<host>` and `did:web:<host>#certified_group_service` are both accepted; a different service's fragment is rejected. Proxy id `certified_group_service` targets the service's own document, `certified_group` the group's (the legacy path).
+
+Full walkthrough: [docs/aud-migration.md](https://github.com/hypercerts-org/certified-group-service/blob/main/docs/aud-migration.md), with the design rationale in [docs/design/aud-deprecation.md](https://github.com/hypercerts-org/certified-group-service/blob/main/docs/design/aud-deprecation.md).
 
 The authorize request's `scope` must be a subset of the client metadata's declared `scope`. The AS may grant fewer scopes than requested — always trust the token response's `scope` field as ground truth, not what you asked for.
 
