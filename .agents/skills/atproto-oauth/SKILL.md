@@ -75,6 +75,8 @@ Required fields:
 - `jwks`/`jwks_uri` publish only the **public** half of signing keys — never the `d` component. Leaking `d` means immediate key rotation + session revocation.
 - Optional trust-building fields (`client_name`, `client_uri`, `logo_uri`, `tos_uri`, `policy_uri`) only render on the consent screen for AS-whitelisted "trusted" clients.
 
+When the AS is an **ePDS** instance, the `epds-login` skill (`ePDS/.agents/skills/epds-login/`) extends this section with ePDS-specific client metadata guidance — confidential vs public client setup, `jwks_uri` vs inline `jwks`, key generation, the force-consent gotcha with public clients, email branding fields, and the `include:` permission sets ePDS apps typically request. Use it alongside this skill for ePDS deployments; it covers only what is ePDS-specific and defers to this skill for protocol-level detail.
+
 ## DPoP (RFC 9449)
 
 One DPoP keypair (P-256/ES256) per session, generated before the first PAR call and kept for the session's lifetime — losing the key ends the session; DPoP keys are never rotated mid-session.
