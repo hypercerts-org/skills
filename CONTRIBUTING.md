@@ -4,7 +4,7 @@ Before adding a skill to the Hypercerts catalog, verify the source skill is port
 
 App or service specific focused skills should not be vendored or copied into this repository; add catalog pointers to their source repository only.
 
-Generic skills that are not unique to any specific app (protocol-level, e.g. `atproto-oauth`) may be hosted directly in this repository under `.agents/skills/<name>/`. Only host a skill here if it would apply the same way regardless of which app or repo is using it — if the skill is tied to a particular app's architecture or codebase, it belongs in that app's own repository as a pointer instead.
+Generic skills that are not unique to any specific app (protocol-level, e.g. `atproto-oauth`) may be hosted directly in this repository under `skills/<name>/`. Only host a skill here if it would apply the same way regardless of which app or repo is using it — if the skill is tied to a particular app's architecture or codebase, it belongs in that app's own repository as a pointer instead.
 
 ## Required checks
 
@@ -42,7 +42,7 @@ npx skills add https://github.com/<owner>/<repo>/tree/main/<path-to-skill> --yes
 
 When a new skill passes the checks:
 
-1. Add it to the table in `skills/hypercerts/references/skill-map.md`. For a locally hosted skill, use `npx skills add hypercerts-org/skills --skill <skill-name> --yes` as the source repository install command and `https://github.com/hypercerts-org/skills/tree/main/.agents/skills/<skill-name>` as the direct-directory fallback.
+1. Add it to the table in `skills/hypercerts/references/skill-map.md`. For a locally hosted skill, use `npx skills add hypercerts-org/skills --skill <skill-name> --yes` as the source repository install command and `https://github.com/hypercerts-org/skills/tree/main/skills/<skill-name>` as the direct-directory fallback.
 2. Add the source link to `README.md` — under "Included skills (hosted here)" for locally hosted skills, or "Included pointers (hosted elsewhere)" for skills in another repository.
 3. Update `skills/hypercerts/SKILL.md` only if the catalog description needs a new trigger category.
 
@@ -54,7 +54,8 @@ Before publishing a catalog update, validate the local skill and confirm it is d
 
 ```bash
 npx skills-ref validate ./skills/hypercerts
+npx skills-ref validate ./skills/atproto-oauth
 npx skills add . --list
 ```
 
-The validator should report `Valid skill: ./skills/hypercerts`, and the list command should show the `hypercerts` skill.
+The validators should report both local skills as valid, and the list command should show `hypercerts` and `atproto-oauth`.
