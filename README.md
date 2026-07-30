@@ -30,9 +30,9 @@ npx skills add . --list
 
 ## Included skills (hosted here)
 
-Generic, reusable skills that are not tied to any specific app live directly in this repository under `.agents/skills`.
+Generic, reusable skills that are not tied to any specific app live directly in this repository under `skills`.
 
-- [atproto-oauth](https://github.com/hypercerts-org/skills/tree/main/.agents/skills/atproto-oauth)
+- [atproto-oauth](https://github.com/hypercerts-org/skills/tree/main/skills/atproto-oauth)
 
 ## Included pointers (hosted elsewhere)
 
@@ -47,7 +47,7 @@ App-specific focused skills remain pointers to their source repositories:
 
 ## Design
 
-This is intentionally a thin catalog. Agent Skills do not define a portable mechanism for one skill to invoke another skill, so this repo documents how to install the focused skills and lets each installed skill activate through its own `description`. Generic skills that are not unique to any specific app (e.g. protocol-level guidance like `atproto-oauth`) may be vendored directly under `.agents/skills/` in this repo instead of pointing elsewhere; app-specific skills remain pointers to their source repos.
+This is intentionally a thin catalog. Agent Skills do not define a portable mechanism for one skill to invoke another skill, so this repo documents how to install the focused skills and lets each installed skill activate through its own `description`. Generic skills that are not unique to any specific app (e.g. protocol-level guidance like `atproto-oauth`) may be vendored directly under `skills/` in this repo instead of pointing elsewhere; app-specific skills remain pointers to their source repos.
 
 ## Contributing
 
