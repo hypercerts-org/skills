@@ -40,6 +40,7 @@ App-specific focused skills remain pointers to their source repositories:
 
 - `epds-login` from [`hypercerts-org/ePDS`](https://github.com/hypercerts-org/ePDS/tree/main/.agents/skills/epds-login)
 - `hyperindex` from [`GainForest/hyperindex`](https://github.com/GainForest/hyperindex/tree/main/.agents/skills/hyperindex)
+- `hypercerts-api` from [`hypercerts-org/api`](https://github.com/hypercerts-org/api/tree/main/.agents/skills/hypercerts-api)
 - `app-development-with-cgs` from [`hypercerts-org/certified-group-service`](https://github.com/hypercerts-org/certified-group-service/tree/main/.agents/skills/app-development-with-cgs)
 - `orglabeler` from [`hypercerts-org/orglabeler`](https://github.com/hypercerts-org/orglabeler/tree/main/.agents/skills/orglabeler)
 - `building-with-hypercerts-lexicons` from [`hypercerts-org/hypercerts-lexicon`](https://github.com/hypercerts-org/hypercerts-lexicon/tree/main/.agents/skills/building-with-hypercerts-lexicons)
