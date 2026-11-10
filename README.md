@@ -53,3 +53,7 @@ This is intentionally a thin catalog. Agent Skills do not define a portable mech
 ## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) before adding another focused skill to the catalog.
+
+## License
+
+Licensed under either [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
