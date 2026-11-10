@@ -16,7 +16,7 @@ Generic skills that are not unique to any specific app (protocol-level, e.g. `at
 - `name` does not start or end with a hyphen.
 - `name` does not contain consecutive hyphens.
 - `description` explains both what the skill does and when to use it.
-- A skill written for this repository (under `skills/<name>/`) also has `license: MIT OR Apache-2.0` in its frontmatter, and its directory contains copies (not symlinks) of the root `LICENSE-MIT` and `LICENSE-APACHE`, because `npx skills add` installs only the skill directory. A skill copied here from another project keeps its upstream license instead: its `license` field names that license, its directory contains copies of the upstream license files, and `README.md` names the upstream project and its license.
+- A skill written for this repository (under `skills/<name>/`) also has `license: MIT OR Apache-2.0` in its frontmatter, and its directory contains copies (not symlinks) of the root `LICENSE-MIT` and `LICENSE-APACHE`, because `npx skills add` installs only the skill directory. A skill copied here from another project keeps its upstream license instead: its `license` field names that license, its directory contains copies of the upstream license files and of any upstream `NOTICE` file, and `README.md` names the upstream project and its license. A skill from a Hypercerts Foundation repository licensed under Apache-2.0 only is never copied here; add a catalog pointer to it instead.
 - The skill does not rely on another skill being invoked by name.
 
 ## Discovery checks
