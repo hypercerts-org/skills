@@ -1,6 +1,7 @@
 ---
 name: hypercerts
 description: Use this skill when a user asks for work across the Hypercerts stack and a focused Hypercerts skill may be needed or missing. This includes ePDS, Hyperindex, the Hypercerts Feed Service and its activity feeds, Hypercerts lexicons, ATProto-based Hypercerts infrastructure, Certified Group Service (CGS), OrgLabeler / Certified Organization Labeler labels, and future Hypercerts tools. Use it even when the user does not explicitly ask which skill to use or how to install one. This catalog and installer skill chooses the smallest matching focused skill, installs it if needed, then reads and follows that focused skill's SKILL.md.
+license: MIT OR Apache-2.0
 ---
 
 # Hypercerts Skills

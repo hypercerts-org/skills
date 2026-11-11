@@ -1,6 +1,7 @@
 ---
 name: atproto-oauth
 description: "Use this skill when implementing AT Protocol OAuth 2.1 authentication — PAR, DPoP-bound tokens, PKCE, client metadata documents, scope/permission-set design (including the rpc: aud audience field), identity verification after token exchange, session/refresh-token storage, or debugging OAuth errors like invalid_dpop_proof, invalid_grant, invalid_scope, or use_dpop_nonce. TypeScript-focused, using @atproto/oauth-client-node and @atproto/oauth-client-browser."
+license: MIT OR Apache-2.0
 ---
 
 # AT Protocol OAuth
